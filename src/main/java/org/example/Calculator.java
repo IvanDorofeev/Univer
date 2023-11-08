@@ -3,8 +3,10 @@ package org.example;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static java.lang.System.in;
-
+/**
+ * This class is for calculating math expressions
+ * @author Ivan Dorofeev
+ */
 public class Calculator {
     String expression;
 
@@ -34,6 +36,11 @@ public class Calculator {
         System.out.println(this.expression);
     }
 
+    /**
+     * Rewrite math expression in normal view (for calculating)
+     * @param expr string expression
+     * @return expression in normal view
+     */
     public String standardView (String expr){
         StringBuilder newExpr = new StringBuilder();
         for (int i = 0; i < expr.length(); i++) {
@@ -103,6 +110,10 @@ public class Calculator {
         return String.valueOf(resultExpr);
     }
 
+    /**
+     * Find any variables in math expression
+     * @return string with variables
+     */
     public String checkForVariables() {
         StringBuilder retStr = new StringBuilder("");
         String expr = this.expression;
@@ -126,6 +137,11 @@ public class Calculator {
         return String.valueOf(retStr);
     }
 
+    /**
+     * Replace variables by their values
+     * @param mas array of default variables values
+     * @return expression after replacing
+     */
     public String fillVariables (char[] mas) {
         StringBuilder expr = new StringBuilder(this.expression);
         String variables = checkForVariables();
@@ -158,6 +174,11 @@ public class Calculator {
         return isCorrect(this.expression);
     }
 
+    /**
+     * Checking math expression for correctness
+     * @param expr math expression
+     * @return expression is correct or not (boolean)
+     */
     public boolean isCorrect(String expr) {
         boolean flag = true;
         ArrayList<String> parentheses = new ArrayList<>();
@@ -201,6 +222,11 @@ public class Calculator {
         return flag;
     }
 
+    /**
+     * Parse the string into float value until string contain non-numeric symbols (first number in string)
+     * @param expr string with some number
+     * @return first number in string
+     */
     public Float[] parser(String expr) {
 
         boolean isNegative = false;
@@ -260,6 +286,11 @@ public class Calculator {
         return new Float[]{result, (float) i};
     }
 
+    /**
+     * Calculate some level of parenthesis of expression
+     * @param expr substring of expression
+     * @return result of calculating of this level
+     */
     private Float[] calc(String expr){
         int i = 0;
         Float result = (float) 0;
@@ -333,6 +364,12 @@ public class Calculator {
         return ret;
     }
 
+    /**
+     * Calculate math expression
+     * If met the parentheses, call the {@link #calc(String)}
+     * @return result of calculating
+     * @throws Exception
+     */
     public Float calculate() throws Exception {
         String expr = this.getExpression();
         System.out.println(this.standardView(this.expression));
