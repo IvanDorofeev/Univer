@@ -1,6 +1,9 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Scanner;
+
+import static java.lang.System.in;
 
 public class Calculator {
     String expression;
@@ -98,6 +101,57 @@ public class Calculator {
             }
         }
         return String.valueOf(resultExpr);
+    }
+
+    public String checkForVariables() {
+        StringBuilder retStr = new StringBuilder("");
+        String expr = this.expression;
+        for (int i = 0; i < expr.length(); i++) {
+            char el = expr.charAt(i);
+            int val = el - 'a';
+            if (val >= 0 && val <= 25) {
+                String strEl = String.valueOf(el);
+                char el1 = expr.charAt(i + 1);
+                String strEl1 = String.valueOf(el1);
+                int val1 = el1 - 'a';
+                char el2 = expr.charAt(i + 2);
+                String strEl2 = String.valueOf(el2);
+                int val2 = el1 - 'a';
+                String express = strEl + strEl1 + strEl2;
+                if (!express.equals("cos") && !express.equals("sin") && !express.equals("pow")) {
+                    retStr.append(el).append(' ');
+                }
+            }
+        }
+        return String.valueOf(retStr);
+    }
+
+    public String fillVariables (char[] mas) {
+        StringBuilder expr = new StringBuilder(this.expression);
+        String variables = checkForVariables();
+        String[] masVar = variables.split(" ");
+        Scanner in = new Scanner(System.in);
+        int len = masVar.length;
+        char[] values = new char[len + mas.length];
+        int i = 0;
+        for (; i < len; i++) {
+            values[i] = mas[i];
+        }
+        for (; i < len; i++) {
+            values[i] = (char) in.nextInt();
+        }
+        int k = 0;
+        for (i = 0; i < expr.length(); i++) {
+            char el = expr.charAt(i);
+            for (String s : masVar) {
+                if (String.valueOf(el).equals(s)) {
+                    expr.setCharAt(i, values[k]);
+                    k += 1;
+
+                }
+            }
+        }
+        return String.valueOf(expr);
     }
 
     public boolean isCorrect() {

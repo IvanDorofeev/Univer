@@ -43,5 +43,23 @@ public class CalculatorTest {
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
+
+        Calculator calculator1 = new Calculator("1.23+ 79* ((39+1) -5) -3");
+        try{
+            Float actual = calculator1.calculate();
+            Float expected = (float) 2763.23;
+            assertEquals(expected, actual);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @org.junit.Test
+    public void fillVariables() {
+        Calculator calculator = new Calculator("-57.675*x+ 78*( ((56+1) + 1) /2 +5)-2");
+        char[] mas = {'3'};
+        String actual = calculator.fillVariables(mas);
+        String expected = "-(57.675 * 3 ) + (78 * ((((56 + 1 ) + 1 ) / 2 ) + 5 ) ) - 2";
+        assertEquals(expected, actual);
     }
 }
